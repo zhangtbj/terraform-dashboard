@@ -6122,64 +6122,21 @@
         A Kubernetes CRD and Controller to handle Terraform operations by generating k8s jobs catered to perform Terraform workflows<br>
         <br>
         <div style="width: 100%; text-align: center;">
-            <img src="img/tf.png" alt="Terraform Operator Introduction" style="width: 50%; height: 50%"/>
+            <img src="img/tf.png" alt="Terraform Operator Introduction" style="width: 70%; height: 70%"/>
         </div>
         <br><br>
-        <h3><b>Use Case 1</b></h3><br>
-        Jordan is a developer of a startup company, he is trying to develop a new cloud application and plan to deploy on Kubernetes. He has a Kubernets cluster sitting on IBM Cloud. He created 3 name spaces dev, staing and production, and he followed the installation guide to enabled Knative and installed Tekton and this project knap. At the very early phase, he quickly rolled out the code and just wanted to build and deploy the application on the Kubernete cluster automatically for each new git commit. To archive this, with knap, he just needed to run few commands to get knap to watch his git project and help build and run the application in dev namespace when a new commit shown up.<br>
-        <br>
+        <h3><b>What is Terraform Operator</b></h3><br>
         <div style="font-style: italic">
-            export KUBECONFIG=xxxxxx<br>
-            knap pipeline --watch https://github.com/bluebosh/jordan_app --template dev_commit --docker-token xxxxxx<br><br>
+            This project is: <br>
+            <br>
+            A way to run Terraform in Kubernetes by defining Terraform deployments as Kubernetes manifests<br>
+            A controller that configures and starts Terraform Workflows when it sees changes to the Kubernetes manifest<br>
+            Workflow runner pods that execute Terraform plan/apply and other user-defined scripts<br>
         </div>
-        After that, when a new commit is pushed in that git project, it's acknowedged by knap and knap will build the source code to an image and deploy into dev name space of that cluster a new revision.<br>
-        <br>
-        <h3><b>Use Case 2</b></h3><br>
-        After some development interation cycles, the application got mature, Jordan would like to onboard the 1st production version and hoped to continuous integration and delivery. He needs a CI/CD pipeline to help on that...<br>
-        <br>
-        <h3><b>Prerequisites</b></h3><br>
-        What things you need to install the software and how to install them<br>
-        <br>
-        <div style="font-style: italic">
-            Give examples
-        </div><br><br>
-        <h3><b>Installing</b></h3><br>
-        A step by step series of examples that tell you how to get a development env running<br>
-        <br>
-        Say what the step will be<br>
-        <br>
-        <div style="font-style: italic">
-            Give the example
-        </div><br><br>
-        And repeat<br>
-        <br>
-        <div style="font-style: italic">
-            until finished
-        </div><br><br>
-        End with an example of getting some data out of the system or using it for a little demo<br>
-        <br>
-        <h3><b>Running the tests</b></h3><br>
-        Explain how to run the automated tests for this system<br>
-        <br>
-        <b>Break down into end to end tests</b><br>
-        Explain what these tests test and why<br>
-        <br>
-        <div style="font-style: italic">
-            Give an example
-        </div><br><br>
-        <b>And coding style tests</b><br>
-        Explain what these tests test and why<br>
-        <br>
-        <div style="font-style: italic">
-            Give an example
-        </div><br><br>
+
+        <br><br>
         <h3><b>Deployment</b></h3><br>
         Add additional notes about how to deploy this on a live system<br>
-        <br>
-        <h3><b>Built With</b></h3><br>
-        <li>Dropwizard - The web framework used</li>
-        <li>Maven - Dependency Management</li>
-        <li>ROME - Used to generate RSS Feeds</li>
         <br>
         <h3><b>Contributing</b></h3><br>
         Please read CONTRIBUTING.md for details on our code of conduct, and the process for submitting pull requests to us.<br>
@@ -6196,10 +6153,6 @@
         <h3><b>License</b></h3><br>
         This project is licensed under the MIT License - see the LICENSE.md file for details<br>
         <br>
-        <h3><b>Acknowledgments</b></h3><br>
-        <li>Hat tip to anyone whose code was used</li>
-        <li>Inspiration</li>
-        <li>etc</li>
     </div>
 </main>
 </body>

@@ -62,6 +62,7 @@ func main() {
 	e.File("/img/deleting.png", "img/deleting.png")
 	e.File("/img/fail.png", "img/fail.png")
 	e.File("/", "index.html")
+	e.File("/hello", "views/hello.html")
 	e.File("/create", "views/create.html")
 	e.GET("/get", Get)
 	e.GET("/list", List)
@@ -75,7 +76,6 @@ func main() {
 	e.GET("/logs", Logs)
 	e.Logger.Fatal(e.Start(":1323"))
 }
-
 
 func Get(c echo.Context) error {
 	cfg, err := clientcmd.BuildConfigFromFlags("", kubeconfig)
@@ -141,75 +141,6 @@ func List(c echo.Context) error {
 	return c.Render(http.StatusOK, "list.html", tfLst.Items)
 }
 
-//func Templates(c echo.Context) error {
-//	cfg, err := clientcmd.BuildConfigFromFlags("", kubeconfig)
-//	if err != nil {
-//		glog.Fatalf("Error building kubeconfig: %v", err)
-//	}
-//
-//	tektoncdClient, err := tektoncdclientset.NewForConfig(cfg)
-//	if err != nil {
-//		glog.Fatalf("Error building tektoncd clientset: %v", err)
-//	}
-//
-//	pipelines, err := tektoncdClient.TektonV1alpha1().Pipelines("default").List(metav1.ListOptions{})
-//	color.Cyan("%-40s%-80s\n", "Template Name", "Template Flow")
-//	for i := 0; i < len(pipelines.Items); i++ {
-//		pipeline := pipelines.Items[i]
-//		taskFlow := ""
-//		for i := 0; i < len(pipeline.Spec.Tasks); i++ {
-//			task := pipeline.Spec.Tasks[i]
-//			if taskFlow == "" {
-//				taskFlow = task.Name
-//			} else {
-//				taskFlow = taskFlow + " -> " + task.Name
-//			}
-//		}
-//		fmt.Printf("%-40s%-80s\n", pipeline.Name, taskFlow)
-//	}
-//	return c.Render(http.StatusOK, "templates.html", pipelines.Items)
-//}
-//
-//func Spaces(c echo.Context) error {
-//	cfg, err := clientcmd.BuildConfigFromFlags("", kubeconfig)
-//	if err != nil {
-//		glog.Fatalf("Error building kubeconfig: %v", err)
-//	}
-//
-//	knapClient, err := knapclientset.NewForConfig(cfg)
-//	if err != nil {
-//		glog.Fatalf("Error building knap clientset: %v", err)
-//	}
-//
-//	appLst, err := knapClient.KnapV1alpha1().Appengines("default").List(metav1.ListOptions{})
-//	color.Cyan("%-30s%-20s%-20s%-20s%-20s\n", "Engine Name", "Application Name", "Ready", "Instance", "Domain")
-//	for i := 0; i < len(appLst.Items); i++ {
-//		app := appLst.Items[i]
-//		fmt.Printf("%-30s%-20s%-20s%-20s%-20s\n", app.Name, app.Spec.AppName, app.Status.Ready, fmt.Sprint(app.Status.Instance)+"/"+fmt.Sprint(app.Spec.Size), app.Status.Domain)
-//	}
-//	return c.Render(http.StatusOK, "spaces.html", appLst.Items)
-//}
-//
-//func Services(c echo.Context) error {
-//	cfg, err := clientcmd.BuildConfigFromFlags("", kubeconfig)
-//	if err != nil {
-//		glog.Fatalf("Error building kubeconfig: %v", err)
-//	}
-//
-//	knapClient, err := knapclientset.NewForConfig(cfg)
-//	if err != nil {
-//		glog.Fatalf("Error building knap clientset: %v", err)
-//	}
-//
-//	appLst, err := knapClient.KnapV1alpha1().Appengines("default").List(metav1.ListOptions{})
-//	color.Cyan("%-30s%-20s%-20s%-20s%-20s\n", "Engine Name", "Application Name", "Ready", "Instance", "Domain")
-//	for i := 0; i < len(appLst.Items); i++ {
-//		app := appLst.Items[i]
-//		fmt.Printf("%-30s%-20s%-20s%-20s%-20s\n", app.Name, app.Spec.AppName, app.Status.Ready, fmt.Sprint(app.Status.Instance)+"/"+fmt.Sprint(app.Spec.Size), app.Status.Domain)
-//	}
-//	return c.Render(http.StatusOK, "services.html", appLst.Items)
-//}
-
 func CreateNew(c echo.Context) error {
 	r := c.Request()
 	cfg, err := clientcmd.BuildConfigFromFlags("", kubeconfig)
@@ -220,6 +151,29 @@ func CreateNew(c echo.Context) error {
 	tfClient, err := tfclientset.NewForConfig(cfg)
 	if err != nil {
 		glog.Fatalf("Error building tf clientset: %v", err)
+	}
+
+	var envVars []corev1.EnvVar
+	if r.FormValue("env1Name") != "" && r.FormValue("env1Value") != "" {
+		var1 := corev1.EnvVar{
+			Name:  r.FormValue("env1Name"),
+			Value: r.FormValue("env1Value"),
+		}
+		envVars = append(envVars, var1)
+	}
+	if r.FormValue("env2Name") != "" && r.FormValue("env2Value") != "" {
+		var2 := corev1.EnvVar{
+			Name:  r.FormValue("env2Name"),
+			Value: r.FormValue("env2Value"),
+		}
+		envVars = append(envVars, var2)
+	}
+	if r.FormValue("env3Name") != "" && r.FormValue("env3Value") != "" {
+		var3 := corev1.EnvVar{
+			Name:  r.FormValue("env3Name"),
+			Value: r.FormValue("env3Value"),
+		}
+		envVars = append(envVars, var3)
 	}
 
 	tf := &tfv1.Terraform{
@@ -235,17 +189,12 @@ func CreateNew(c echo.Context) error {
       }
     }
 `, r.FormValue("tfName")),
-			TerraformVersion: r.FormValue("tfVersion"),
-			TerraformModule:     r.FormValue("gitRepo"),
+			TerraformVersion:          r.FormValue("tfVersion"),
+			TerraformModule:           r.FormValue("gitRepo"),
 			TerraformRunnerPullPolicy: corev1.PullIfNotPresent,
-			KeepCompletedPods: true,
-			WriteOutputsToStatus: true,
-			Env: []corev1.EnvVar{
-				{
-					Name:      r.FormValue("envName"),
-					Value:     r.FormValue("envValue"),
-				},
-			},
+			KeepCompletedPods:         true,
+			WriteOutputsToStatus:      true,
+			Env:                       envVars,
 		},
 	}
 	_, err = tfClient.TfV1alpha1().Terraforms("default").Create(context.TODO(), tf, metav1.CreateOptions{})
@@ -299,10 +248,6 @@ func GetEdit(c echo.Context) error {
 	}
 
 	tf.Spec.TerraformModule = r.FormValue("gitRepo")
-
-	tf.Spec.Env[0].Name = r.FormValue("envName")
-	tf.Spec.Env[0].Value = r.FormValue("envValue")
-
 
 	_, err = tfClient.TfV1alpha1().Terraforms("default").Update(context.TODO(), tf, metav1.UpdateOptions{})
 

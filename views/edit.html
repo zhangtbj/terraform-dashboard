@@ -6250,18 +6250,6 @@
                         <label>Git Revision <span class="required">*</span></label>
                         <input type="text" name="gitRevision" class="field-long" value="master" />
                     </li>
-                    <li>
-                        <div>
-                            <label>Environment Property Name <span class="required"></span></label>
-                            <input type="text" name="envName" class="field-long" value="{{(index .Spec.Env 0).Name}}" />
-                        </div>
-                    </li>
-                    <li>
-                        <div>
-                            <label>Environment Property Value <span class="required"></span></label>
-                            <input type="text" name="envValue" class="field-long" value="{{(index .Spec.Env 0).Value}}" />
-                        </div>
-                    </li>
                     <br>
                     <li>
                         <input type="submit" value="Submit" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <input type="reset" value="Reset" />
