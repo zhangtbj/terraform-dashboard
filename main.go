@@ -5,12 +5,11 @@ import (
 	"github.com/golang/glog"
 	tfv1 "github.com/isaaguilar/terraform-operator/pkg/apis/tf/v1alpha1"
 	tfclientset "github.com/isaaguilar/terraform-operator/pkg/client/clientset/versioned"
+	"github.com/labstack/echo"
 	"github.com/labstack/gommon/color"
 	"golang.org/x/net/context"
 	corev1 "k8s.io/api/core/v1"
 	"net/http"
-	//"github.com/golang/glog"
-	"github.com/labstack/echo"
 	"os"
 
 	"html/template"
@@ -19,9 +18,6 @@ import (
 
 	_ "k8s.io/client-go/plugin/pkg/client/auth/oidc" // from https://github.com/kubernetes/client-go/issues/345
 	"k8s.io/client-go/tools/clientcmd"
-
-	//"os"
-	//"strconv"
 )
 
 var kubeconfig string
@@ -62,14 +58,16 @@ func main() {
 	e.File("/img/deleting.png", "img/deleting.png")
 	e.File("/img/initializing-delete.png", "img/initializing-delete.png")
 	e.File("/img/fail.png", "img/fail.png")
+	e.File("/img/ibm_logo.png", "img/ibm_logo.png")
+	e.File("/img/aws_logo.png", "img/aws_logo.png")
+	e.File("/img/azure_logo.png", "img/azure_logo.png")
+	e.File("/img/openshift_logo.png", "img/openshift_logo.png")
 	e.File("/", "index.html")
 	e.File("/hello", "views/hello.html")
 	e.File("/create", "views/create.html")
+	e.File("/marketplace", "views/marketplace.html")
 	e.GET("/get", Get)
 	e.GET("/list", List)
-	//e.GET("/templates", Templates)
-	//e.GET("/spaces", Spaces)
-	//e.GET("/services", Services)
 	e.GET("/createnew", CreateNew)
 	e.GET("/edit", Edit)
 	e.GET("/getedit", GetEdit)

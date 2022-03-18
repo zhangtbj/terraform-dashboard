@@ -6098,15 +6098,7 @@
                 </li>
                 <br/>
                 <li role="menuitem" class="left-nav-list__item" data-interior-left-nav-item>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="startcoding" href="/spaces">Settings</a>
-                </li>
-                <br/>
-                <li role="menuitem" class="left-nav-list__item" data-interior-left-nav-item>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="startcoding" href="/services">Services</a>
-                </li>
-                <br/>
-                <li role="menuitem" class="left-nav-list__item" data-interior-left-nav-item>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="startcoding" href="/templates">Marketplace</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="startcoding" href="/marketplace">Marketplace</a>
                 </li>
                 <br/>
             </ul>
@@ -6208,7 +6200,6 @@
             }
 
             body {
-                padding: 0 2em;
                 font-family: Arial, sans-serif;
                 color: #024457;
                 background: #f2f2f2;
@@ -6226,7 +6217,8 @@
         </style>
         <br>
         <h2><b>Terraform {{.Name}} Output</b></h2><br>
-        A Kubernetes CRD and Controller to handle Terraform operations by generating k8s jobs catered to perform Terraform workflows<br>
+        A Kubernetes CRD and Controller to handle Terraform operations by generating k8s jobs catered to perform
+        Terraform workflows<br>
         <br><br>
         <table class="responstable">
             <tr>
@@ -6248,7 +6240,16 @@
             <tr>
                 <th>Status</th>
                 <td>
-                    {{.Status.Stages}}
+                    {{range .Status.Stages}}
+                        <b>generation</b>: {{.Generation}} <br>
+                        <b>interruptible</b>: {{.Interruptible}} <br>
+                        <b>podType</b>: {{.PodType}} <br>
+                        <b>reason</b>: {{.Reason}} <br>
+                        <b>startTime</b>: {{.StartTime}} <br>
+                        <b>state</b>: {{.State}} <br>
+                        <b>stopTime</b>: {{.StopTime}} <br>
+                        <br>
+                    {{end}}
                 </td>
             </tr>
         </table>

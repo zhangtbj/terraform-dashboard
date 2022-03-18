@@ -6095,13 +6095,7 @@
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="startcoding" href="/list">Terraform List</a>
                 </li><br />
                 <li role="menuitem" class="left-nav-list__item" data-interior-left-nav-item>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="startcoding" href="/spaces">Settings</a>
-                </li><br />
-                <li role="menuitem" class="left-nav-list__item" data-interior-left-nav-item>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="startcoding" href="/services">Services</a>
-                </li><br />
-                <li role="menuitem" class="left-nav-list__item" data-interior-left-nav-item>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="startcoding" href="/templates">Marketplace</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="startcoding" href="/marketplace">Marketplace</a>
                 </li><br />
             </ul>
             <button class="bx--interior-left-nav-collapse" data-interior-left-nav-collapse>
@@ -6188,7 +6182,6 @@
             }
 
             body {
-                padding: 0 2em;
                 font-family: Arial, sans-serif;
                 color: #024457;
                 background: #f2f2f2;
@@ -6204,7 +6197,7 @@
             }
         </style>
         <br>
-        <h2><b>Template List</b></h2><br>
+        <h2><b>Terraform Marketplace</b></h2><br>
         A Kubernetes CRD and Controller to handle Terraform operations by generating k8s jobs catered to perform Terraform workflows<br>
         <br><br><br>
         <table class="responstable">
@@ -6213,17 +6206,46 @@
                 <th width="15%">Template Name</th>
                 <th>Template Flow</th>
             </tr>
-            {{range .}}
             <tr>
-                <td style="font-size: 12px; vertical-align: middle;">{{.Name}}</td>
                 <td>
-                    {{range .Spec.Tasks}}
-                        <table style="width: 250px; height: 50px; float:left;"><tr><td style="background-color: #76aaea; font-size: 12px; vertical-align: middle;"><font color="white">{{.Name}}</font></td></tr></table>
-                        <table style="width: 50px; height: 50px; float:left;"><tr><td style="font-size: 12px; vertical-align: middle;">--></td></tr></table>
-                    {{end}}
+                    <b>IBM Cloud Provider
+                </td>
+                <td>
+                    <img src="img/ibm_logo.png" style="width: 150px; height: 100px"/>
                 </td>
             </tr>
-            {{end}}
+            <tr>
+                <td>
+                    <b>AWS Provider</b>
+                </td>
+                <td>
+                    <img src="img/aws_logo.png" style="width: 150px; height: 100px"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Azure Provider</b>
+                </td>
+                <td>
+                    <img src="img/azure_logo.png" style="width: 150px; height: 100px"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>OpenShift Provider</b>
+                </td>
+                <td>
+                    <img src="img/openshift_logo.png" style="width: 150px; height: 100px"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Other Providers</b>
+                </td>
+                <td>
+                    ...
+                </td>
+            </tr>
         </table>
     </div>
 </main>

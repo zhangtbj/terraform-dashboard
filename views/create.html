@@ -6095,13 +6095,7 @@
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="startcoding" href="/list">Terraform List</a>
                 </li><br />
                 <li role="menuitem" class="left-nav-list__item" data-interior-left-nav-item>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="startcoding" href="/spaces">Settings</a>
-                </li><br />
-                <li role="menuitem" class="left-nav-list__item" data-interior-left-nav-item>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="startcoding" href="/services">Services</a>
-                </li><br />
-                <li role="menuitem" class="left-nav-list__item" data-interior-left-nav-item>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="startcoding" href="/templates">Marketplace</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="startcoding" href="/marketplace">Marketplace</a>
                 </li><br />
             </ul>
             <button class="bx--interior-left-nav-collapse" data-interior-left-nav-collapse>
@@ -6227,19 +6221,16 @@
                 if(resource.selectedIndex == 0)
                 {
                     second.innerHTML = "<label>Git Repo <span class='required'>*</span></label>\<input type='text' name='gitRepo' class='field-long' />";
-                    third.innerHTML="<label>Git Revision <span class='required'>*</span></label><input type='text' name='gitRevision' class='field-long' value='master' />"
                 }
 
                 if(resource.selectedIndex == 1)
                 {
                     second.innerHTML = "<label>Image URL <span class='required'>*</span></label>\<input type='text' name='imgUrl' class='field-long' value='us.icr.io/namespace/image_name' />";
-                    third.innerHTML="<label>Image Version <span class='required'>*</span></label><input type='text' name='imgVersion' class='field-long' />"
                 }
 
                 if(resource.selectedIndex == 2)
                 {
                     second.innerHTML = "<label>Storage Type <span class='required'>*</span></label>\<input type='text' name='storageType' class='field-long' value='GCS' />";
-                    third.innerHTML="<label>Storage Location <span class='required'>*</span></label><input type='text' name='storageLocation' class='field-long' value='gs://some-bucket' />"
                 }
 
             }
@@ -6262,6 +6253,7 @@
                     <li>
                         <label>Terraform Version <span class="required">*</span></label>
                         <input type="text" name="tfVersion" class="field-long" />
+                        (For example: 1.0.0)
                     </li>
                     <li>
                         <label>Namespace</label>
@@ -6275,12 +6267,7 @@
                             <label>Git Repo <span class="required">*</span></label>
                             <input type="text" name="gitRepo" class="field-long" />
                         </div>
-                    </li>
-                    <li>
-                        <div id="thirdInput">
-                            <label>Git Revision <span class="required"></span></label>
-                            <input type="text" name="gitRevision" class="field-long" value="master" />
-                        </div>
+                        (<a href="https://github.com/zhangtbj/terraform-example-ibmcloud" target="_blank">IBM Cloud Example Repo</a>)
                     </li>
                     <li>
                         <div>
@@ -6291,7 +6278,7 @@
                     <li>
                         <div>
                             <label>Environment Property 1 Value <span class="required"></span></label>
-                            <input type="text" name="env1Value" class="field-long" value="" />
+                            <input type="password" name="env1Value" class="field-long" value="" />
                         </div>
                     </li>
                     <li>
@@ -6303,7 +6290,7 @@
                     <li>
                         <div>
                             <label>Environment Property 2 Value <span class="required"></span></label>
-                            <input type="text" name="env2Value" class="field-long" value="" />
+                            <input type="password" name="env2Value" class="field-long" value="" />
                         </div>
                     </li>
                     <li>
@@ -6315,7 +6302,7 @@
                     <li>
                         <div>
                             <label>Environment Property 3 Value <span class="required"></span></label>
-                            <input type="text" name="env3Value" class="field-long" value="" />
+                            <input type="password" name="env3Value" class="field-long" value="" />
                         </div>
                     </li>
                     <br>
