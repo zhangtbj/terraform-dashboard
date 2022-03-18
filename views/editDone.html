@@ -6115,13 +6115,13 @@
     </div>
 </div>
 <br>
-<main class="main has-custom-left-nav " role="main" aria-label="Application Details - IBM Cloud">
+<main class="main has-custom-left-nav " role="main" aria-label="Edit Done - IBM Cloud">
     <div style="padding: 30px">
         <br>
-        <h2><b>Edit Terraform {{.}} Done</b></h2><br>
+        <h2><b>Edit Terraform {{index . "name"}} Done</b></h2><br>
         A Kubernetes CRD and Controller to handle Terraform operations by generating k8s jobs catered to perform Terraform workflows<br>
         <br><br><br>
-        <h3>Edit Terraform resource <font color="red">{{.}}</font> done! Please access <a href="/list">Terraform List</a> page to check your new Terraform resource. </h3>
+        <h3>Edit Terraform resource <font color="red">{{index . "name"}}</font> done! Please access <a href="/list">Terraform List</a> page to check your new Terraform resource. </h3>
     </div>
 </main>
 </body>

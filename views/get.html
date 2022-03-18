@@ -6121,7 +6121,7 @@
     </div>
 </div>
 <br>
-<main class="main has-custom-left-nav " role="main" aria-label="Application Details - IBM Cloud">
+<main class="main has-custom-left-nav " role="main" aria-label="Get - IBM Cloud">
     <div style="padding: 30px">
         <style>
             .responstable {
@@ -6272,13 +6272,15 @@
                                 {{if eq .State "complete"}}
                                 <td style="background-color: green; font-size: 12px; vertical-align: middle;">
                                     <font color="white">
-                                    {{else}}
+                                        <h4>{{.PodType}}</h4><br><br>{{.StopTime}}
+                                    </font>
+                                {{else}}
                                 <td style="background-color: white; font-size: 12px; vertical-align: middle;">
                                     <font>
-                                    {{end}}
-                                    {{.PodType}}<br>{{if .StartTime}}{{.StopTime}}{{else}}running{{end}}
+                                        <h4>{{.PodType}}</h4><br><br>{{.State}}
                                     </font>
                                 </td>
+                                {{end}}
                             </tr>
                         </table>
                     {{end}}

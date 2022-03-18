@@ -57,9 +57,10 @@ func main() {
 
 	e.File("/img/tf.png", "img/tf.png")
 	e.File("/img/running.png", "img/running.png")
-	e.File("/img/pending.png", "img/pending.png")
+	e.File("/img/initializing.png", "img/initializing.png")
 	e.File("/img/completed.png", "img/completed.png")
 	e.File("/img/deleting.png", "img/deleting.png")
+	e.File("/img/initializing-delete.png", "img/initializing-delete.png")
 	e.File("/img/fail.png", "img/fail.png")
 	e.File("/", "index.html")
 	e.File("/hello", "views/hello.html")
@@ -200,7 +201,6 @@ func CreateNew(c echo.Context) error {
 	_, err = tfClient.TfV1alpha1().Terraforms("default").Create(context.TODO(), tf, metav1.CreateOptions{})
 
 	if err != nil {
-		//glog.Fatalf("Error creating application engine: %s", args[0])
 		fmt.Println("Error creating terraform resource", r.FormValue("tfName"), err)
 	} else {
 		fmt.Println("Terraform Resource", r.FormValue("tfName"), "is created successfully")
@@ -242,11 +242,12 @@ func GetEdit(c echo.Context) error {
 		glog.Fatalf("Error building tf clientset: %v", err)
 	}
 
-	tf, err := tfClient.TfV1alpha1().Terraforms("default").Get(context.TODO(), r.FormValue("appName")+"-appengine", metav1.GetOptions{})
+	tf, err := tfClient.TfV1alpha1().Terraforms("default").Get(context.TODO(), r.FormValue("tfName"), metav1.GetOptions{})
 	if err != nil {
 		glog.Fatalf("Error getting terraform resource: %v", r.FormValue("tfName"))
 	}
 
+	tf.Spec.TerraformVersion = r.FormValue("tfVersion")
 	tf.Spec.TerraformModule = r.FormValue("gitRepo")
 
 	_, err = tfClient.TfV1alpha1().Terraforms("default").Update(context.TODO(), tf, metav1.UpdateOptions{})

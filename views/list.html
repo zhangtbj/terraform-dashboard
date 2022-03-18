@@ -6115,7 +6115,7 @@
     </div>
 </div>
 <br>
-<main class="main has-custom-left-nav " role="main" aria-label="Application Details - IBM Cloud">
+<main class="main has-custom-left-nav " role="main" aria-label="List - IBM Cloud">
     <div style="padding: 30px">
         <style>
             .responstable {
@@ -6222,10 +6222,10 @@
                     <td><a href="/get?name={{.Name}}">{{.Name}}</a></td>
                     <td>{{.Namespace}}</td>
                     <td>{{.Generation}}</td>
-                    <td>{{.CreationTimestamp}}</td>
+                    <td>{{.CreationTimestamp.Format "2006-01-02 15:04:05"}}</td>
                     <td><img src="img/{{.Status.Phase}}.png" alt="{{.Status.Phase}}" width="12px"
                              height="12px"/>&nbsp;{{.Status.Phase}}</td>
-                    <td><a href="/logs?name={{.Name}}">Output</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="/edit?name={{.Name}}">Edit</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="/delete?name={{.Name}}" onClick="return confirm('Are you absolutely sure you want to delete this application?')">Delete</a></td>
+                    <td><a href="/logs?name={{.Name}}">Output</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="/edit?name={{.Name}}">Edit</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="/delete?name={{.Name}}" onClick="return confirm('Are you absolutely sure you want to delete this Terraform Resource?')">Delete</a></td>
                 </tr>
             {{end}}
         </table>
