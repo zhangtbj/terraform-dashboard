@@ -73,6 +73,7 @@ func main() {
 	e.GET("/getedit", GetEdit)
 	e.GET("/delete", Delete)
 	e.GET("/logs", Logs)
+	e.GET("/outputs", Outputs)
 	e.Logger.Fatal(e.Start(":1323"))
 }
 
@@ -260,6 +261,25 @@ func GetEdit(c echo.Context) error {
 	return c.Render(http.StatusOK, "editDone.html", map[string]interface{}{
 		"name": r.FormValue("tfName"),
 	})
+}
+
+func Outputs(c echo.Context) error {
+	cfg, err := clientcmd.BuildConfigFromFlags("", kubeconfig)
+	if err != nil {
+		glog.Fatalf("Error building kubeconfig: %v", err)
+	}
+
+	tfClient, err := tfclientset.NewForConfig(cfg)
+	if err != nil {
+		glog.Fatalf("Error building tf clientset: %v", err)
+	}
+
+	tf, err := tfClient.TfV1alpha1().Terraforms("default").Get(context.TODO(), c.Request().FormValue("name"), metav1.GetOptions{})
+	if err != nil {
+		glog.Fatalf("Error getting terraform resource: %v", c.Request().FormValue("name"))
+	}
+	fmt.Print("Get terraform resource", tf)
+	return c.JSON(http.StatusOK, tf)
 }
 
 func Logs(c echo.Context) error {
