@@ -64,6 +64,7 @@ func main() {
 	e.File("/img/terraform_logo.png", "img/terraform_logo.png")
 	e.File("/img/alibaba_logo.png", "img/alibaba_logo.png")
 	e.File("/img/tecent_logo.png", "img/tecent_logo.png")
+	e.File("/img/openshift_logo.png", "img/openshift_logo.png")
 	e.File("/", "index.html")
 	e.File("/hello", "views/hello.html")
 	e.File("/create", "views/create.html")
