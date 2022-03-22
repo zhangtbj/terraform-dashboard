@@ -179,19 +179,6 @@ func CreateNew(c echo.Context) error {
 		envVars = append(envVars, var3)
 	}
 
-	var gitRepo string
-	var configMapName string
-	var inlineCode string
-	if r.FormValue("gitRepo") != "" {
-		gitRepo = r.FormValue("gitRepo")
-	}
-	if r.FormValue("configMapName") != "" {
-		gitRepo = r.FormValue("configMapName")
-	}
-	if r.FormValue("inlineCode") != "" {
-		gitRepo = r.FormValue("inlineCode")
-	}
-
 	tf := &tfv1.Terraform{
 		ObjectMeta: metav1.ObjectMeta{
 			Name:      r.FormValue("tfName"),
@@ -205,13 +192,8 @@ func CreateNew(c echo.Context) error {
       }
     }
 `, r.FormValue("tfName")),
-			TerraformVersion: r.FormValue("tfVersion"),
-			TerraformModule:  gitRepo,
-			TerraformModuleConfigMap: &tfv1.ConfigMapSelector{
-				Name: configMapName,
-				Key:  "",
-			},
-			TerraformModuleInline:     inlineCode,
+			TerraformVersion:          r.FormValue("tfVersion"),
+			TerraformModule:           r.FormValue("gitRepo"),
 			TerraformRunnerPullPolicy: corev1.PullIfNotPresent,
 			KeepCompletedPods:         true,
 			WriteOutputsToStatus:      true,
@@ -268,7 +250,7 @@ func GetEdit(c echo.Context) error {
 	}
 
 	tf.Spec.TerraformVersion = r.FormValue("tfVersion")
-	//tf.Spec.TerraformModule = r.FormValue("gitRepo")
+	tf.Spec.TerraformModule = r.FormValue("gitRepo")
 
 	_, err = tfClient.TfV1alpha1().Terraforms("default").Update(context.TODO(), tf, metav1.UpdateOptions{})
 
