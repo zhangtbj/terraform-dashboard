@@ -6211,6 +6211,30 @@
         <h2><b>Edit Terraform {{.Name}}</b></h2><br>
         A Kubernetes CRD and Controller to handle Terraform operations by generating k8s jobs catered to perform Terraform workflows<br>
         <br>
+        <script>
+            function setSecond()
+            {
+                var resource = document.getElementById("resourceType");
+                var second = document.getElementById('secondInput');
+                var third = document.getElementById('thirdInput');
+                if(resource.selectedIndex == 0)
+                {
+                    second.innerHTML = "<label>Git Repo <span class='required'>*</span></label>\<input type='text' name='gitRepo' class='field-long' value=\"{{.Spec.TerraformModule}}\" />";
+                }
+
+                if(resource.selectedIndex == 1)
+                {
+                    second.innerHTML = "<label>ConfigMap Name <span class='required'>*</span></label>\<input type='text' name='configMapName' class='field-long' value=\"{{.Spec.TerraformModuleConfigMap}}\" />";
+                }
+
+                if(resource.selectedIndex == 2)
+                {
+                    second.innerHTML = "<label>Inline Code <span class='required'>*</span></label>\<input type='text' name='inlineCode' class='field-long' value=\"{{.Spec.TerraformModuleInline}}\" />";
+                }
+
+            }
+        </script>
+
             <form action="/getedit" method="GET">
                 <ul class="form-style-1">
                     <li>
@@ -6219,10 +6243,10 @@
                     </li>
                     <li>
                         <label>Resource Type</label>
-                        <select name="resourceType" class="field-select">
+                        <select name="resourceType" id="resourceType" class="field-select" onchange="setSecond(this)">
                             <option value="git">Git</option>
-                            <option value="image">Image [Not Implemented]</option>
-                            <option value="Storage">Storage [Not Implemented]</option>
+                            <option value="configmap">ConfigMap</option>
+                            <option value="inline">Inline Code</option>
                         </select>
                     </li>
                     <li>
@@ -6233,12 +6257,13 @@
                         <label>Namespace</label>
                         <select name="namespace" class="field-select">
                             <option value="default">default</option>
-                            <option value="test">test [developing]</option>
                         </select>
                     </li>
                     <li>
-                        <label>Git Repo <span class="required">*</span></label>
-                        <input type="text" name="gitRepo" class="field-long" value="{{.Spec.TerraformModule}}" />
+                        <div id="secondInput">
+                            <label>Git Repo <span class="required">*</span></label>
+                            <input type="text" name="gitRepo" class="field-long" value="{{.Spec.TerraformModule}}" />
+                        </div>
                     </li>
                     <br>
                     <li>
