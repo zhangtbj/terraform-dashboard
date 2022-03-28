@@ -189,9 +189,10 @@ func CreateNew(c echo.Context) error {
       backend "kubernetes" {
         secret_suffix    = "%s"
         in_cluster_config  = true
+		namespace = "%s"
       }
     }
-`, r.FormValue("tfName")),
+`, r.FormValue("tfName"), r.FormValue("namespace")),
 			TerraformVersion:          r.FormValue("tfVersion"),
 			TerraformModule:           r.FormValue("gitRepo"),
 			TerraformRunnerPullPolicy: corev1.PullIfNotPresent,
